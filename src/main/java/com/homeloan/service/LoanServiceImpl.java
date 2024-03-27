@@ -1,5 +1,7 @@
 package com.homeloan.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +23,7 @@ public class LoanServiceImpl implements LoanService{
 
 
 	@Override
-	public LoanEntity getbyUserId(int id) {
+	public List<LoanEntity> getbyUserId(int id) {
 		return	loanRepository.findByUserId(id);
 	}
 

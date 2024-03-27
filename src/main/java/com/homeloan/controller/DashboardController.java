@@ -1,9 +1,10 @@
 package com.homeloan.controller;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,7 +16,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.homeloan.beans.LoanEntity;
@@ -33,24 +33,29 @@ public class DashboardController {
 	@Autowired
 	private LoanService loanService;
 
+	
+	
 	@GetMapping
 	public String displayDashboard(Model model) throws ParseException {
 //		String user= returnUsername();
 //        model.addAttribute("userDetails", user);
 		User returnUsers = returnUsers();
-		LoanEntity getbyUserId = loanService.getbyUserId(returnUsers.getId());
-		if (getbyUserId != null) {
-			DateTimeFormatter customFormatter = DateTimeFormatter.ofPattern("mm/dd/yyyy");
-			Date inititedDate = getbyUserId.getInititedDate();
-//			System.out.println(inititedDate.getYear());
-//			LocalDate of = LocalDate.of(inititedDate.getYear(), inititedDate.getMonth(), inititedDate.getDate());
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			Date dateWithoutTime = sdf.parse(sdf.format(inititedDate));
-			model.addAttribute("initiatedDate", dateWithoutTime);
-			model.addAttribute("loanentity", getbyUserId);
-			model.addAttribute("Docapproval", getbyUserId.getDocApproval().equals("1") ? "APPROVED" : "PEDING");
-			model.addAttribute("RMapproval", getbyUserId.getRmApproval().equals("1") ? "APPROVED" : "PEDING");
-		}
+//		LoanEntity getbyUserId = lo
+//		if (getbyUserId != null) {
+//			DateTimeFormatter customFormatter = DateTimeFormatter.ofPattern("mm/dd/yyyy");
+//			Date inititedDate = getbyUserId.getInititedDate();
+////			System.out.println(inititedDate.getYear());
+////			LocalDate of = LocalDate.of(inititedDate.getYear(), inititedDate.getMonth(), inititedDate.getDate());
+//			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//			Date dateWithoutTime = sdf.parse(sdf.format(inititedDate));
+//			model.addAttribute("initiatedDate", dateWithoutTime);
+//			model.addAttribute("loanentity", getbyUserId);
+//			model.addAttribute("Docapproval", getbyUserId.getDocApproval().equals("1") ? "APPROVED" : "PEDING");
+//			model.addAttribute("RMapproval", getbyUserId.getRmApproval().equals("1") ? "APPROVED" : "PEDING");
+//		}
+		List<LoanEntity> getbyUserId = loanService.getbyUserId(returnUsers.getId());
+		model.addAttribute("loanrecord", getbyUserId);
+		System.out.println(getbyUserId);
 		return "dashboard";
 	}
 

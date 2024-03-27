@@ -13,6 +13,7 @@
   <!-- Author: FormBold Team -->
   <!-- Learn More: https://formbold.com -->
   <div class="formbold-form-wrapper">
+  
      <form:form action="/login" method="POST">
       <div class="formbold-form-title">
         <h2 class="">Login</h2>
@@ -54,6 +55,9 @@
       </div>
 
       <button class="formbold-btn">Login</button>
+      <c:if test="${param.error != null}">
+        <p style="color:red">Invalid username or password</p>
+    </c:if>
     </form:form>
   </div>
 </div>

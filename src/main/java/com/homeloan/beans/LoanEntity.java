@@ -2,7 +2,6 @@ package com.homeloan.beans;
 
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,6 +10,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,6 +25,8 @@ public class LoanEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+//	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "custom-id")
+//    @GenericGenerator(name = "custom-id", strategy = "com.homeloan.service.IdGenerator")
 	private int id;
 	private int userId;
 	private String firstName;

@@ -40,7 +40,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/registration").permitAll().anyRequest().authenticated().and().formLogin()
+		http.authorizeRequests().antMatchers("/registration").permitAll().anyRequest().authenticated().and().formLogin().permitAll()
 		.loginPage("/login").successHandler(successHandler).permitAll().and().logout()
 		.invalidateHttpSession(true).clearAuthentication(true)
 		.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login?logout")
