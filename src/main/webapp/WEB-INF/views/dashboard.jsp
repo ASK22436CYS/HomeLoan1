@@ -38,7 +38,7 @@ left: 15%
 		<table class="loan-table">
 			<tr>
 				<th>Loan Id</th>
-				<th>Type of loan</th>
+				
 				<th>Customer Name</th>
 				<th>Loan Amount</th>
 				<th>Rate of Interest</th>
@@ -48,7 +48,7 @@ left: 15%
 			<c:forEach items="${loanrecord}" var="record">
 				<tr>
 					<td>${record.id}</td>
-					<td>${record.id}</td>
+					
 					<td>${record.firstName}</td>
 					<td>${record.amount}</td>
 					<td>${record.interest}</td>

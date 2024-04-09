@@ -9,4 +9,6 @@ public interface LoanService {
 	public LoanEntity saveEntity(LoanEntity loanEntity);
 	
 	public List<LoanEntity> getbyUserId(int id);
+	
+	public LoanEntity getLoanentity(int userid,int loanid);
 }

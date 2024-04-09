@@ -1,8 +1,11 @@
 package com.homeloan.controller;
 
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,8 +18,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.homeloan.beans.LoanEntity;
 import com.homeloan.beans.User;
@@ -54,6 +59,27 @@ public class DashboardController {
 //			model.addAttribute("RMapproval", getbyUserId.getRmApproval().equals("1") ? "APPROVED" : "PEDING");
 //		}
 		List<LoanEntity> getbyUserId = loanService.getbyUserId(returnUsers.getId());
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.mm.yyyy");
+		
+		getbyUserId.stream().map(t->{LoanEntity loanEntity = t;
+//	LocalDate date = LocalDate.parse(simpleDateFormat.format(t.getInititedDate()));
+	java.util.Date d;
+	try {
+//		d = new SimpleDateFormat("yyyy-MM-dd").parse(t.getInititedDate().toString());
+//		 DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd/MM/yyyy");  
+//		 SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
+//	        Date date = dt.parse(d.toString());
+		
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		  String formattedDate = dateFormat.format(t.getInititedDate());
+		Date parsedDate = dateFormat.parse(t.getInititedDate().toString());
+		loanEntity.setInititedDate(parsedDate);
+	} catch (ParseException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+		
+		return loanEntity;}).collect(Collectors.toList());
 		model.addAttribute("loanrecord", getbyUserId);
 		System.out.println(getbyUserId);
 		return "dashboard";
@@ -119,4 +145,34 @@ public class DashboardController {
 	public String applyLoan() {
 		return"";
 	}
+	@GetMapping("/loanSearch")
+	public String getLoanSearch() {
+		
+//		System.out.println("loanentity"+loanentity);
+		return "loansearch";
+	}
+	
+	@GetMapping("/getLoanEntity/{id}")
+	@ResponseBody
+	public LoanEntity getLoanData(@PathVariable("id") int id) {
+		System.out.println("id::"+id);
+		User returnUsers = returnUsers();
+		LoanEntity loanentity = loanService.getLoanentity(returnUsers.getId(),id);
+		LocalDate now = LocalDate.now();
+		int year =Integer.valueOf(String.valueOf("20"+loanentity.getInititedDate().getYear()%100));
+		LocalDate of = LocalDate.of(year, loanentity.getInititedDate().getMonth()+1, loanentity.getInititedDate().getDate());
+		Date date = new Date();
+		 long differenceInDays = Math.abs(ChronoUnit.DAYS.between(now, of));
+		 System.out.println(differenceInDays);
+		System.out.println("loanentity:"+loanentity);
+		if(differenceInDays>14) {
+		loanentity.setStatus("success");	
+		return loanentity;
+		}else {
+			loanentity.setStatus("fail");
+			return loanentity;
+		}
+	}
 }
+
+

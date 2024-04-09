@@ -1,5 +1,6 @@
 package com.homeloan.beans;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -43,10 +44,10 @@ public class LoanEntity {
 	private String interest;
 	private String emi;
 
-	
+	private String status;
 	private String typeOfLoan;
 	@CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
+//    @Temporal(TemporalType.TIMESTAMP)
 	private Date inititedDate;
 	private String docApproval="0";
 	private String rmApproval="0";

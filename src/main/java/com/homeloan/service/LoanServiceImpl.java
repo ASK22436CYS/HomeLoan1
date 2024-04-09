@@ -27,5 +27,15 @@ public class LoanServiceImpl implements LoanService{
 		return	loanRepository.findByUserId(id);
 	}
 
+
+	@Override
+	public LoanEntity getLoanentity(int userid, int loanid) {
+		
+		return loanRepository.getLoanEntity(userid, loanid);
+	}
+
+
+	
+
 	
 }

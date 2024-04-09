@@ -14,7 +14,7 @@
           <ul>
             <li><a href="/dashboard">Home</a></li>
            <li><a href="/dashboard/applyLoan">New Loan</a></li>
-            <li><a href="/dashboard">Track Loan</a></li>
+            <li><a href="/dashboard/loanSearch">Track Loan</a></li>
             <li><a href="/dashboard/loanOfferings">LoanOffers</a></li>
             <li><a href="/logout">logout</a></li>
           </ul>
