@@ -1,5 +1,6 @@
 package com.homeloan;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.context.TestPropertySource;
 
 import com.homeloan.beans.User;
+import com.homeloan.controller.DashboardController;
 import com.homeloan.controller.RegistrationController;
 import com.homeloan.dto.CustomerLoginDto;
 import com.homeloan.dto.CustomerRegisteration;
@@ -28,6 +30,8 @@ class HomeLoamAppServiceTest {
 	
 	@Autowired
 	private RegistrationController rc;
+	@Autowired
+	private DashboardController dc;
 	
 
 	@Test
@@ -69,6 +73,7 @@ class HomeLoamAppServiceTest {
 		 cr.setPassword("ravi");
 		 cr.setEmailId("ravi@gmaill.com");
 		 assertNotNull(cr);
+		 
 	}
 	
    

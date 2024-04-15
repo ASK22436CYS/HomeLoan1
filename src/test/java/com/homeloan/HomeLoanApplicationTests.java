@@ -2,8 +2,8 @@ package com.homeloan;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -11,7 +11,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
@@ -26,6 +25,7 @@ import com.homeloan.dao.CustomerRepository;
 import com.homeloan.dto.CustomerLoginDto;
 import com.homeloan.dto.LoginDto;
 import com.homeloan.service.DefaultUserService;
+import com.homeloan.service.LoanService;
 
 @RunWith(MockitoJUnitRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
@@ -48,6 +48,19 @@ class HomeLoanApplicationTests {
 	
 	@Mock
 	private Model mo;
+	
+	 @Mock
+	    private HttpServletRequest request;
+	
+	
+	@Mock
+    private CustomerRepository userRepository;
+
+    @Mock
+    private LoanService loanService;
+
+    
+
 
 	@Test
 	void registerPage() {
@@ -105,6 +118,28 @@ class HomeLoanApplicationTests {
 	  public void loginPageDTO() {
 		 LoginDto userLoginDTO = logCon.userLoginDTO();
 		 assertNotNull(userLoginDTO);
+		 String loanSearch = dashboardController.getLoanSearch();
+		 assertEquals("loansearch", loanSearch);
+		 String loanOfferings = dashboardController.loanOfferings();
+		 assertEquals("LoanOfferings", loanOfferings);
+		 String applyLoan = dashboardController.getApplyLoan();
+		 assertEquals("applyLoan", applyLoan);
+		 String loan = dashboardController.applyLoan();
+		 assertEquals("", loan);
+		 
+		 request.setAttribute("address", "HYD");
+		 request.setAttribute("adharCard", "1234567890");
+		 request.setAttribute("amount", "2345678");
+		 request.setAttribute("email", "raju@gmail.com");
+		 request.setAttribute("emi", "2345");
+		 request.setAttribute("firstName", "raju");
+		 request.setAttribute("interest", "4");
+		 request.setAttribute("lastName", "k");
+		 request.setAttribute("mobile", "845361246");
+		 request.setAttribute("pancard", "GNDPK5678F");
+		 request.setAttribute("tenure", "5");
+		
+		 
 	  }
 	  
 	 
